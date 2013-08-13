@@ -41,5 +41,18 @@ Backup Users Access Key Should have an IAM  Policy like the following.
       ]
     }
     
-    
-    
+Installation
+------------
+Create a config file in conf/settings.yml
+
+    access_key: AAAAAAAAZZZZZZZZ
+    secret_key: AAAAAAAAABBBBBBBBBBBBBCCCCCCCCCCCCCCDDDDD
+    region: us-east-1
+    device: /dev/sdh
+    mongo_port: 27017
+    admin_user: admin
+    admin_pass: <PASS>
+    run_if: not_master 
+   
+
+run_if checks server is not master. Should be used to set so that if quorum fails and the backup host is elected as primary. The backup should stop. Use the mongo options properly to avoid using this option. 
