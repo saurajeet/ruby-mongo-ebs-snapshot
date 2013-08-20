@@ -1,8 +1,9 @@
-ruby-mongo-ebs-snapshot
-=======================
+ruby-mongo-ebs-snapshot [UNDER DEVELOPMENT]
+===========================================
   
-Backing Up Mongo as EBS snapshots
-    
+Backing Up Mongo as EBS snapshots. 
+
+You may want to start by creating an IAM User or Delegating the following minimal rights to IAM user responsible for backup operations.    
 Backup Users Access Key Should have an IAM  Policy like the following.
     
     {
