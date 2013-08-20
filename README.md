@@ -53,6 +53,8 @@ Create a config file in conf/settings.yml
     admin_user: admin
     admin_pass: <PASS>
     run_if: not_master 
-   
+    desc: lorem ipsum 
 
 run_if checks server is not master. Should be used to set so that if quorum fails and the backup host is elected as primary. The backup should stop. Use the mongo options properly to avoid using this option. 
+
+desc are the descriptions to be added to the snapshot

@@ -6,6 +6,7 @@ require 'mongo'
 require 'pp'
 require 'curb'
 require 'yaml'
+require 'logger'
 
 include Mongo
 
@@ -37,12 +38,12 @@ class Backup
 		@instance_id = response.body_str
 	end
 
-	def mongo_fs_lock
+	def mongo_fs_lock!
 		return if (@mongo_client == nil)
 		@mongo_client.lock!
 	end
 
-	def mongo_fs_unlock
+	def mongo_fs_unlock!
 		return if (@mongo_client == nil)
 		@mongo_client.unlock!
 	end
@@ -69,7 +70,13 @@ class Backup
 				return
 			end
 			@volume_id = map[:ebs][:volume_id]
-			puts "Snapshotting Started on #{@volume_id}"
+			mongo_fs_lock!
+		 	print "#{Time.now}: Snapshotting Started on #{@volume_id}"
+			vol = @infra.volumes[@volume_id]
+			snap = vol.create_snapshot "#{@settings[:desc.to_s]}"
+			sleep 1 until [:completed, :error].include?(snap.status)
+			print  " completed on #{Time.now} with " + snap.status.to_s
+			mongo_fs_unlock!
 		end
 	end
 end
