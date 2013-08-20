@@ -2,7 +2,8 @@ namespace :backup do
 
 	desc "Take Mongo Backup"
 	task :take do
-		puts "Taking Backup"
+		new_backup = Backup.new
+		new_backup.backup_vol
 	end
 
 
